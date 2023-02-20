@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block main %}
+    <div class="row">
+        <div class="col">
+            <form id="contact-form" method="POST" action="/contact">
+                {{ form.csrf_token }}
+            
+                <h1>{{ form.title }}</h1>
+                <hr>
+                <p>{{ form.description }}</p>
+                
+                <div class="form-group">
+                {% for field in form %}
+                    <div class="form-group">
+                        {% if field.label != "" %}
+
+                            {{ field.label }} 
+                            {% if "required" in field.flags %}
+                            <span class="required">(Required)</span>
+                            {% endif %}
+                            <p><small>{{ field.description }}</small></p>
+                            {% if field.name in error_fields %}
+                                {{ field(size=100, class="form-control input-field invalid") }}
+                            {% else %}
+                                {{ field(size=100) }}
+                            {% endif %}
+                        
+                        {% endif %}
+                    </div>
+                {% endfor %}
+                </div>
+                
+                <input class="btn btn-primary" type="submit" value="Send">
+            </form>
+        </div>
+    </div>
+    
+{% endblock %}

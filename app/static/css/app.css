@@ -1,3 +1,49 @@
 body {
     padding-top: 5rem;
 }
+
+.row {
+    margin-top: 50px;
+}
+
+.form-group .invalid {
+    border-color: red;
+    border-width: 3px;
+    color: rgb(179, 3, 3);
+    font-weight: bold;
+}
+
+span[class=required] {
+    font-weight:bold;
+    color:red;
+}
+
+.form-group {
+    margin-top:40px;
+    justify-content: space-between;
+}
+
+.input-field {
+    max-width: 50%;
+}
+
+.alert {
+    list-style: none;
+    width: 50%;
+}
+
+p {
+    margin: 0 auto;
+}
+
+label {
+    font-weight: bold;
+}
+
+.btn {
+    width: 125px;
+}
+
+.navbar-brand img {
+    width: 30px;
+}

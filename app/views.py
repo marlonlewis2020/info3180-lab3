@@ -1,5 +1,9 @@
 from app import app
+from .forms import ContactForm
 from flask import render_template, request, redirect, url_for, flash
+from flask_mail import Message
+
+from app import mail
 
 
 ###
@@ -16,6 +20,33 @@ def home():
 def about():
     """Render the website's about page."""
     return render_template('about.html', name="Mary Jane")
+
+@app.route('/contact', methods=["GET", "POST"])
+def contact():
+    error_fields = list()
+    form = ContactForm()
+    name = form.name.data
+    email = form.email.data
+    subject = form.subject.data
+    message = form.message.data
+    form.csrf_token.label=""
+    if form.validate_on_submit() or request.method=="POST":
+        form.validate()
+        
+        if not len(form.errors):
+            msg = Message(subject,
+                sender=(name, email), recipients=["b36bbcf205-b15674@inbox.mailtrap.io"])
+            msg.body = message
+            mail.send(msg)
+            flash("Your message has been sent successfully!","alert alert-success info")
+            return redirect(url_for('home'))
+        alerts = form.errors.values()
+        for field in form.errors.keys():
+            error_fields.append(field)
+        for errors in alerts:
+            for error in errors:
+                flash(error,"alert alert-danger") 
+    return render_template('contact.html', form=form, error_fields=error_fields)
 
 
 ###
