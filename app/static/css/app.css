@@ -27,6 +27,12 @@ span[class=required] {
     max-width: 50%;
 }
 
+.alerts {
+    position:sticky;
+    top: 65px;
+    font-size:medium;
+}
+
 .alert {
     list-style: none;
     width: 50%;
